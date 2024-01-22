@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import A from './components/A';
+import B from './components/B';
 
 function App() {
+  const [value, setValue] = useState("");
+  const [posts, setposts] = useState([]);
+  useEffect(()=>{
+		fetch('https://jsonplaceholder.typicode.com/posts')
+		.then(response => response.json())
+		.then(posts => setposts(posts));
+	},[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{padding:'1rem'}}>
+      <input value={value} onChange={e => setValue(e.target.value)} />
+      <div style={{display:'flex'}}>
+        <A messge={value} posts={posts}/>
+        <B messge={value} posts={posts}/>
+      </div>
     </div>
   );
 }
