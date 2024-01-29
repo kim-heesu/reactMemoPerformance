@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 const Message = React.memo(({messge})=>{
 	return(
@@ -14,7 +14,7 @@ const ListItem = React.memo(({post}) =>{
 	)
 })
 
-const List = React.memo(({posts}) =>{
+const List = React.memo(({posts,testFunction}) =>{
 	return (
 		<ul>
 			{posts.map(post=>{
@@ -27,11 +27,13 @@ const List = React.memo(({posts}) =>{
 })
 
 const B = ({posts,messge}) => {
+	console.log('dd')
+	const testFunction = useCallback(() =>{},[]);
   return (
 	<div>
 	  <h1>B component</h1>
 		<Message messge={messge} />
-		<List posts={posts} />
+		<List posts={posts} testFunction={testFunction}/>
 	</div>
   )
 }
